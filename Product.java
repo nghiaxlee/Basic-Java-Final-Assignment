@@ -27,4 +27,13 @@ public class Product implements Util
   public GoldenTicket getPrize() { return prizeTicket; }
 
   public boolean hasPrize() { return prizeTicket != null; }
+
+  @Override
+  public String toString()
+  {
+    String s = "Description: " + description;
+    s += "\nBarcode: " + barcode;
+    s += "\nSerial number: " + serialNumber;
+    return s;
+  }
 }

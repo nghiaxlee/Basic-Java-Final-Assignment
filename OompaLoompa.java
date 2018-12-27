@@ -3,10 +3,10 @@ public class OompaLoompa extends MortalBeing
   private int height; // not sure 'bout this.
   private String food;
 
-  public OompaLoompa()
-  {}
+  // public OompaLoompa()
+  // {}
 
-  public OompaLoompa(String code, String name, int height, String food)
+  public OompaLoompa(long code, String name, int height, String food)
   {
     super(code, name);
     this.height = height;

@@ -7,14 +7,15 @@ public class Kid extends MortalBeing implements Util
   private ArrayList<Product> purchased;
   private String birthplace;
 
-  public Kid()
-  {}
+  // public Kid()
+  // {}
 
-  public Kid(String code, String name, Date birthday, String place)
+  public Kid(long code, String name, Date birthday, String place)
   {
     super(code, name);
     this.birthday = birthday;
     this.birthplace = place;
+    purchased = new ArrayList<>();
   }
 
   public boolean hasPrize()
