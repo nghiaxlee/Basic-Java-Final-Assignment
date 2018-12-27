@@ -1,15 +1,22 @@
 public class OompaLoompa extends MortalBeing
 {
   private int height; // not sure 'bout this.
-  private String fav_food;
+  private String food;
 
-  public Kid(String code, String name, int height, String fav_food)
+  public OompaLoompa()
+  {}
+
+  public OompaLoompa(String code, String name, int height, String food)
   {
     super(code, name);
     this.height = height;
-    this.fav_food = fav_food;
+    this.food = food;
   }
 
   // Getters and Setters
+  public void setHeight(int h) { height = h; }
+  public void setFood(String f) { food = f; }
 
+  public int getHeight() { return height; }
+  public String getFood() { return food; }
 }

@@ -1,4 +1,4 @@
-public class Product
+public class Product implements Util
 {
   private String description;
   private long barcode;
@@ -8,6 +8,23 @@ public class Product
   public Product()
   {}
 
+  public Product(String des, long code, String serial)
+  {
+    description = des;
+    barcode = code;
+    serialNumber = serial;
+  }
+
   // Getters and Setters
-  
+  public void setDescription(String des) { description = des; }
+  public void setBarcode(long code) { barcode = code; }
+  public void setSerialNumber(String serial) { serialNumber = serial; }
+  public void setPrize(GoldenTicket ticket) { prizeTicket = ticket; }
+
+  public String getDescription() { return description; }
+  public long getBarcode() { return barcode; }
+  public String getSerialNumber() { return serialNumber; }
+  public GoldenTicket getPrize() { return prizeTicket; }
+
+  public boolean hasPrize() { return prizeTicket != null; }
 }
