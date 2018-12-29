@@ -15,10 +15,10 @@ public class MyMenu
     static ArrayList<Kid> kids = new ArrayList<>();
     static ArrayList<Product> products = new ArrayList<>();
     static HashMap<Long, Kid> kidsByCode = new HashMap<>();
-    static HashMap<Long, Integer> numProduct = new HashMap<>();
-    static ArrayList<Product> productsEmpty = new ArrayList<>();
     static ArrayList<OompaLoompa> oompas = new ArrayList<>();
     static ArrayList<GoldenTicket> tickets = new ArrayList<>();
+    static HashMap<Long, Integer> numProduct = new HashMap<>();
+    static ArrayList<Product> productsEmpty = new ArrayList<>();
     static SimpleDateFormat my_format = new SimpleDateFormat("dd-MM-yy");
 
   public static void main(String args[])
@@ -121,6 +121,15 @@ public class MyMenu
             break;
         }
       } while (option != 0);
+
+      for(Kid k: kids)
+      {
+        k.writeToFile("Users.txt");
+      }
+      for(Product p: products)
+      {
+        p.writeToFile("Users.txt");
+      }
     }
     catch (Exception e)
     {
@@ -132,8 +141,8 @@ public class MyMenu
   public static void NewSong()
   {
     song = new OompaLoompaSong(rand.nextInt(24) + 1);
-    System.out.println(song.sing());
-    System.out.println(song);
+    // System.out.println(song.sing());
+    // System.out.println(song);
   }
 
   public static void RegisterSale()

@@ -6,7 +6,7 @@ public class GoldenTicket
 
   private String code;
   private Date raffled;
-  private SimpleDateFormat my_format = new SimpleDateFormat("dd-MMM-yy");
+  private static SimpleDateFormat my_format = new SimpleDateFormat("dd-MMM-yy");
 
   public GoldenTicket()
   {}

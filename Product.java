@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+
 public class Product implements Util
 {
   private String description;
@@ -26,7 +30,15 @@ public class Product implements Util
   public String getSerialNumber() { return serialNumber; }
   public GoldenTicket getPrize() { return prizeTicket; }
 
+  // Util implements.
   public boolean hasPrize() { return prizeTicket != null; }
+  public void writeToFile(String fname) throws Exception
+  {
+    PrintWriter pw = new PrintWriter(new FileOutputStream(new File(fname), true));
+    pw.append(toString());
+    pw.append('\n');
+    pw.close();
+  }
 
   @Override
   public String toString()
