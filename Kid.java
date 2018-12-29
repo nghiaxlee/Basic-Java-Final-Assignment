@@ -31,6 +31,7 @@ public class Kid extends MortalBeing implements Util
   // Getters and Setters
   public void setBirthPlace(String place) { birthplace = place; }
   public void setBirthDay(Date day) { birthday = day; }
+  public void addProduct(Product p) { purchased.add(p); }
 
   public String getBirthPlace() { return birthplace; }
   public Date getBirthDay() { return birthday; }

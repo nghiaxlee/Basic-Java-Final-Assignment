@@ -1,14 +1,22 @@
-import java.util.*;
+import java.util.Date;
+import java.util.Random;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.text.SimpleDateFormat;
 
 public class MyMenu
 {
 
+    static OompaLoompaSong song;
     static Random rand = new Random();
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Kid> kids = new ArrayList<>();
-    static HashMap<Long, Kid> kidsByCode = new HashMap<>();
     static ArrayList<Product> products = new ArrayList<>();
+    static HashMap<Long, Kid> kidsByCode = new HashMap<>();
+    static HashMap<Long, Integer> numProduct = new HashMap<>();
+    static ArrayList<Product> productsEmpty = new ArrayList<>();
     static ArrayList<OompaLoompa> oompas = new ArrayList<>();
     static ArrayList<GoldenTicket> tickets = new ArrayList<>();
     static SimpleDateFormat my_format = new SimpleDateFormat("dd-MM-yy");
@@ -79,6 +87,7 @@ public class MyMenu
             break;
           case 4: //    4 - Create a new Oompa Loompa song
             System.out.println("Generating new song:");
+            NewSong();
             break;
           case 5: //    5 - Register Beings
             System.out.println("Registering being:");
@@ -91,17 +100,11 @@ public class MyMenu
           case 7: //    7 - Ruffle tickets
             // TODO: I would like to store products by hashmap with barcode. but how can I distribute the tickets then?
             System.out.println("Ruffling tickets:");
+            RuffleTicket();
             break;
           case 8: //    8 - Register sale
             System.out.println("Registering sale:");
-            System.out.println("User code:");
-            long kid_code = sc.nextLong();
-            Kid kid = kidsByCode.get(kid_code);
-            System.out.println("Product code:");
-            long prod_code = sc.nextLong();
-            // Remove from general lists (swap to the last element, remove the last).
-            // Add to kid lists
-
+            RegisterSale();
             break;
           case 9: //    9 - List winners
             System.out.println("Winners:");
@@ -126,6 +129,74 @@ public class MyMenu
     // TODO: Catch specific one, i.e InputMismatchException, ParseException
   }
 
+  public static void NewSong()
+  {
+    song = new OompaLoompaSong(rand.nextInt(24) + 1);
+    System.out.println(song.sing());
+    System.out.println(song);
+  }
+
+  public static void RegisterSale()
+  {
+    System.out.println("User code:");
+    long kid_code = sc.nextLong();
+    Kid kid = kidsByCode.get(kid_code);
+    if (kid == null)
+    {
+      System.out.println("There is no kid with the given code");
+      return;
+    }
+    System.out.println("Product code:");
+    long prod_code = sc.nextLong();
+    int n = numProduct.getOrDefault(prod_code, 0);
+    if (n == 0)
+    {
+      System.out.println("No more item with barcode " + prod_code + " to sell");
+      return;
+    }
+    int pos = rand.nextInt(n) + 1; // will sell the pos-th product.
+    for(int i = 0, cnt = 0; i < products.size(); ++i)
+    {
+      Product p = products.get(i);
+      if (p.getBarcode() == prod_code)
+        cnt++;
+      if (cnt == pos)
+      {
+        Collections.swap(products, i, 0);
+        break;
+      }
+    }
+    // DONE: If product hasn't had prize yet, then we also need to remove it from productsEmpty.
+    Product p = products.get(0);
+    if (!p.hasPrize())
+    {
+      productsEmpty.remove(p);
+      System.out.println("Removed!");
+    }
+    kid.addProduct(products.get(0));
+    products.remove(0);
+  }
+
+  public static void RuffleTicket()
+  {
+    System.out.println("Number of generating tickets:");
+    int n = sc.nextInt();
+    Collections.shuffle(productsEmpty);
+    // After shuffling, take the n-th first element and assign the ticket to it.
+    while (n > 0 && productsEmpty.size() > 0)
+    {
+      GoldenTicket t = new GoldenTicket();
+      Product p = productsEmpty.get(0);
+      t.setCode(Long.toString(rand.nextLong()));
+      t.setDate(new Date());
+      tickets.add(t);
+      p.setPrize(t);
+      productsEmpty.remove(0);
+      n--;
+      System.out.println(p + " Now have a golden ticket");
+    }
+  }
+
   public static void ReadProduct()
   {
     Product p = new Product();
@@ -140,6 +211,8 @@ public class MyMenu
     p.setSerialNumber(serial);
     // System.out.println(p);
     products.add(p);
+    productsEmpty.add(p);
+    numProduct.put(bar, numProduct.getOrDefault(bar, 0) + 1);
   }
 
   public static void ReadMortal() throws Exception
@@ -173,7 +246,7 @@ public class MyMenu
     else
     {
       System.out.println("Type can only be Kid or Oompa");
-      throw new InputMismatchException();
+      throw new java.util.InputMismatchException();
     }
   }
 
