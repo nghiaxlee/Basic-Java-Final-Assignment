@@ -1,3 +1,5 @@
+package models.beings;
+
 import java.util.Random;
 import java.util.ArrayList;
 

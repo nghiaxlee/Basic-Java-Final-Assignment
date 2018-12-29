@@ -1,3 +1,5 @@
+package models.beings;
+
 public abstract class MortalBeing
 {
 

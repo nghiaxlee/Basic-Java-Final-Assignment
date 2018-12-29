@@ -1,3 +1,5 @@
+package models.others;
+
 public interface Util
 {
   public boolean hasPrize();

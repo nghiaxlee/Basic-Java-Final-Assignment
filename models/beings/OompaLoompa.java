@@ -1,3 +1,5 @@
+package models.beings;
+
 public class OompaLoompa extends MortalBeing
 {
   private int height; // not sure 'bout this.

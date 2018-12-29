@@ -1,3 +1,8 @@
+package models.beings;
+
+import models.others.*;
+import models.products.*;
+
 import java.io.File;
 import java.util.Date;
 import java.util.ArrayList;
