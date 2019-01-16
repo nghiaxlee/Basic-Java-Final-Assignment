@@ -61,22 +61,33 @@ public class Controller
     }
   }
 
-  public void WriteToFile() throws Exception
+  public void WriteToFile()
   {
-    for(Kid k: kids)
+    try
     {
-      k.writeToFile("Users.txt");
+      int cnt = 0;
+      for(Kid k: kids)
+      {
+        cnt++;
+        k.writeToFile("Users" + cnt);
+      }
+      cnt = 0;
+      for(Product p: products)
+      {
+        cnt++;
+        p.writeToFile("Products" + cnt);
+      }
     }
-    for(Product p: products)
+    catch (Exception e)
     {
-      p.writeToFile("Users.txt");
+      System.out.println("Error!" + e.toString());
     }
   }
 
   public void NewSong()
   {
     song = new OompaLoompaSong(rand.nextInt(24) + 1);
-    // System.out.println(song.sing());
+    System.out.println("Sing a random line:" + song.sing());
     // System.out.println(song);
   }
 
@@ -114,10 +125,13 @@ public class Controller
     if (!p.hasPrize())
     {
       productsEmpty.remove(p);
-      System.out.println("Removed!");
+      // System.out.println("Removed!");
     }
-    kid.addProduct(products.get(0));
+    System.out.println("Kid with id " + kid.getCode() + " just bought " + p);
+    kid.addProduct(p);
+    System.out.println(p + " is added to kid's purchased list");
     products.remove(0);
+    System.out.println(p + " is removed from product list");
   }
 
   public void RuffleTicket()
@@ -126,18 +140,26 @@ public class Controller
     int n = sc.nextInt();
     Collections.shuffle(productsEmpty);
     // After shuffling, take the n-th first element and assign the ticket to it.
-    // Question: Do I have to add exactly n tickets in to tickets array? Because this loop might stop earlier than that.
+    System.out.println("Distributing tickets:");
     while (n > 0 && productsEmpty.size() > 0)
     {
       GoldenTicket t = new GoldenTicket();
-      Product p = productsEmpty.get(0);
       t.setCode(Long.toString(rand.nextLong()));
       t.setDate(new Date());
       tickets.add(t);
+      Product p = productsEmpty.get(0);
       p.setPrize(t);
       productsEmpty.remove(0);
       n--;
-      System.out.println(p + " Now have a golden ticket");
+      System.out.println(p + " now have a golden ticket");
+    }
+    while (n > 0)
+    {
+      GoldenTicket t = new GoldenTicket();
+      t.setCode(Long.toString(rand.nextLong()));
+      t.setDate(new Date());
+      tickets.add(t);
+      n--;
     }
   }
 

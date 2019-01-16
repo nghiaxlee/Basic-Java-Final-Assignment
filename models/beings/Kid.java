@@ -40,7 +40,7 @@ public class Kid extends MortalBeing implements Util
 
   public void writeToFile(String fname) throws Exception
   {
-    PrintWriter pw = new PrintWriter(new FileOutputStream(new File(fname), true));
+    PrintWriter pw = new PrintWriter(new FileOutputStream(new File(fname)));
     pw.append(toString());
     pw.append('\n');
     pw.close();
@@ -58,9 +58,9 @@ public class Kid extends MortalBeing implements Util
   public String toString()
   {
     String s = "Name: " + name;
-    s += "\nUser code: " + code;
-    s += "\nBirthday: " + my_format.format(birthday);
-    s += "\nPlace of Birth: " + birthplace;
+    s += "; User code: " + code;
+    s += "; Birthday: " + my_format.format(birthday);
+    s += "; Place of Birth: " + birthplace;
     // TODO: Purchased items??
     return s;
   }

@@ -38,7 +38,7 @@ public class Product implements Util
   public boolean hasPrize() { return prizeTicket != null; }
   public void writeToFile(String fname) throws Exception
   {
-    PrintWriter pw = new PrintWriter(new FileOutputStream(new File(fname), true));
+    PrintWriter pw = new PrintWriter(new FileOutputStream(new File(fname)));
     pw.append(toString());
     pw.append('\n');
     pw.close();
@@ -48,8 +48,8 @@ public class Product implements Util
   public String toString()
   {
     String s = "Description: " + description;
-    s += "\nBarcode: " + barcode;
-    s += "\nSerial number: " + serialNumber;
+    s += "; Barcode: " + barcode;
+    s += "; Serial number: " + serialNumber;
     return s;
   }
 }

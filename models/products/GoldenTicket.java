@@ -37,9 +37,9 @@ public class GoldenTicket
   {
     String s = "Ticket: " + code;
     if (isRaffled())
-      s += "\nRaffled's date:" + my_format.format(raffled);
+      s += "; Raffled's date:" + my_format.format(raffled);
     else
-      s += "\nNot yet raffled";
+      s += "; Not yet raffled";
     return s;
   }
 }
